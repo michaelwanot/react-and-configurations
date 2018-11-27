@@ -1,4 +1,5 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const path = require("path");
 
 const htmlWebpackPlugin = new HtmlWebPackPlugin({
   template: "./public/index.html",
@@ -6,12 +7,12 @@ const htmlWebpackPlugin = new HtmlWebPackPlugin({
 });
 
 module.exports = {
+  entry: "./src/index.js", // custom entry point
+  output: { // custom output
+    path: path.resolve('./dist'), // where to place de build
+    filename: 'bundled.js' // name of the build generated, if not exist
+  },
   module: {
-    // entry: "./src/app.js", // custom entry point
-    // output: { // custom output
-    //   path: path.resolve('dist'),
-    //   filename: 'bundled.js'
-    // },
     rules: [
       {
         test: /\.js$/,

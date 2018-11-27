@@ -1,9 +1,17 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const DotenvWebPackPlugin = require('dotenv-webpack')
 const path = require("path");
 
 const htmlWebpackPlugin = new HtmlWebPackPlugin({
   template: "./public/index.html",
   filename: "./index.html"
+});
+
+const dotenvWebpackPlugin = new DotenvWebPackPlugin({
+  path: './dotenvs/local.env', // load this now instead of the ones in '.env'
+  safe: true, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
+  systemvars: true, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
+  silent: true // hide any errors
 });
 
 module.exports = {
@@ -41,5 +49,8 @@ module.exports = {
       }
     ]
   },
-  plugins: [htmlWebpackPlugin]
+  plugins: [
+    htmlWebpackPlugin,
+    dotenvWebpackPlugin,
+  ]
 };

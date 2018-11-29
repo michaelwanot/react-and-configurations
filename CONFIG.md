@@ -53,4 +53,6 @@ We start configuring base webpack file called "webpack.config.js":
   <li>now export the module with base rules array with object that contains infos about the build. So we are excluding the /node_modules directory and use the babel-loader.
   We use also css modules and append them in the end of rules array because webpack reads rules from the last element of it and the order of those elements are very important! We must load css rules before add them to the DOM.
   We can also add more options to each rule; <i>we added some options to css-loader module.</i></li>
+
+  <li>to import files as .svg images, we need to download and apply the file-loader lib and add as a rule in the file.</li>
 </ul>

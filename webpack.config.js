@@ -1,5 +1,6 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const DotenvWebPackPlugin = require('dotenv-webpack')
+const DotenvWebPackPlugin = require('dotenv');
+const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const path = require("path");
 
 const htmlWebpackPlugin = new HtmlWebPackPlugin({
@@ -7,12 +8,16 @@ const htmlWebpackPlugin = new HtmlWebPackPlugin({
   filename: "./index.html"
 });
 
-const dotenvWebpackPlugin = new DotenvWebPackPlugin({
-  path: './dotenvs/local.env', // load this now instead of the ones in '.env'
-  safe: true, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
-  systemvars: true, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
-  silent: true // hide any errors
-});
+const interpolateHtmlPlugin = new InterpolateHtmlPlugin({ // object to resolve PUBLIC_URL
+  'PUBLIC_URL': './public'
+})
+const dotenvWebpackPlugin = DotenvWebPackPlugin.config();
+// const dotenvWebpackPlugin = new DotenvWebPackPlugin({
+//   path: path.resolve('./dotenvs'), // load this now instead of the ones in '.env'
+//   safe: true, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
+//   systemvars: true, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
+//   silent: true // hide any errors
+// });
 
 module.exports = {
   entry: "./src/index.js", // custom entry point
@@ -22,6 +27,10 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: [/\.svg$/],
+        loader: 'file-loader' // svg loader
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -44,13 +53,14 @@ module.exports = {
               sourceMap: true,
               minimize: true
             }
-          }
+          },
         ]
       }
     ]
   },
   plugins: [
+    // dotenvWebpackPlugin,
     htmlWebpackPlugin,
-    dotenvWebpackPlugin,
+    interpolateHtmlPlugin // to resolve decode param '/%PUBLIC_URL%/favicon.ico'
   ]
 };

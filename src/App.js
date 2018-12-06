@@ -4,20 +4,6 @@ import style from './style.css';
 
 class App extends React.Component {
   render() {
-    const obj = {
-      a: {
-        a_a: [1, 2, 3, 4],
-        a_b: '2',
-      },
-      b: {
-        b_a: '',
-        b_b: [
-          1,
-          2,
-          3,
-        ],
-      },
-    }
     return (
       <div className={style.App}>
         <header className={style.AppHeader}>

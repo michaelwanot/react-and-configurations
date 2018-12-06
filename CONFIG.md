@@ -45,6 +45,25 @@ You can also configure this in the packageaction.payloadaction.payloadaction.pay
     ]
   }
 
+<h4><blockquote>eslint-babel packages</h4>
+We want to add eslint to our configurations. It will be used to lint our code to check sintax errors or warning and follow guide line the align code with other users if needed. This rules will be written in a .eslintrc file.
+A complete documentation and a complete collection of examples are available in this link: https://eslint.org/
+
+<i>eslint-loader</i>
+<i>babel-eslint</i>
+<i>eslint-plugin-react</i> - to define rules for React specifically
+
+Then we add the first loader in our webpack config file with the babel-loader, createing a new file .eslintrc and add few basic lines
+{
+  "parser": "babel-eslint",
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+  }
+}
+in rules we will add some rules referenced to the documentation; To add specific react rules, we must write rules in this form: "react/[rule]"
+
 <h1>Configuring base webpack file</h1>
 We start configuring base webpack file called "webpack.config.js":
 <ul>
